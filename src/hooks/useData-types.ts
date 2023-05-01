@@ -16,6 +16,6 @@ export interface Genre {
   id: number;
   name: string;
   games_count: number;
-  background_image: string;
+  image_background: string;
   description: string;
 }
