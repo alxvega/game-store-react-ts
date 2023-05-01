@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Game, Genre } from "../services/response-types";
 import { CanceledError } from "axios";
+
+import { Game, Genre } from "./useData-types";
 import apiClient from "../services/api-client";
 
 interface ApiResponse<T> {
