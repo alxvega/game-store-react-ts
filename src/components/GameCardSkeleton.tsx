@@ -6,10 +6,9 @@ const GameCardSkeleton = () => {
       <Skeleton
         height='400px'
         width='600px'
-        borderRadius={10}
-        overflow='hidden'></Skeleton>
+      />
       <CardBody>
-        <SkeletonText></SkeletonText>
+        <SkeletonText />
       </CardBody>
     </Card>
   );
