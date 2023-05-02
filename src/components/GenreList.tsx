@@ -23,11 +23,10 @@ const GenreList = () => {
       {genresError && <Text>{genresError}</Text>}
       <List>
         {isLoadingGenres &&
-          skeletons.map((skeleton, index) => (
+          skeletons.map((skeleton) => (
             <GenreListSkeleton
-              boxSize={styleProps.boxSize}
-              borderRadius={styleProps.borderRadius}
-              key={`skeleton-${index}`}></GenreListSkeleton>
+              paddingY={styleProps.paddingY}
+              key={`skeleton-${skeleton}`}></GenreListSkeleton>
           ))}
 
         {genres.map((genre) => (

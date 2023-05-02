@@ -1,18 +1,17 @@
-import { Skeleton, SkeletonText } from "@chakra-ui/react";
+import { ListItem, HStack, Skeleton, SkeletonText } from "@chakra-ui/react";
 
 interface Props {
-  borderRadius: number;
-  boxSize: string;
+  paddingY: string;
 }
 
-const GenreListSkeleton = ({ boxSize, borderRadius }: Props) => {
+const GenreListSkeleton = ({ paddingY }: Props) => {
   return (
     <>
-      <Skeleton
-        boxSize={boxSize}
-        borderRadius={borderRadius}
-      />
-      <SkeletonText />
+      <Skeleton paddingY={paddingY}>
+        <SkeletonText
+          fontSize='lg'
+          width='168px'></SkeletonText>
+      </Skeleton>
     </>
   );
 };
