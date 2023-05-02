@@ -1,4 +1,4 @@
-import { SimpleGrid, Text } from "@chakra-ui/react";
+import { SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import { useGames } from "../hooks/useData";
 import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
@@ -32,3 +32,4 @@ const GameGrid = () => {
 };
 
 export default GameGrid;
+<Spinner></Spinner>;

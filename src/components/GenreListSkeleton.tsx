@@ -1,4 +1,4 @@
-import { ListItem, HStack, Skeleton, SkeletonText } from "@chakra-ui/react";
+import { Spinner, Skeleton, SkeletonText } from "@chakra-ui/react";
 
 interface Props {
   paddingY: string;
@@ -8,9 +8,10 @@ const GenreListSkeleton = ({ paddingY }: Props) => {
   return (
     <>
       <Skeleton paddingY={paddingY}>
+        <Spinner></Spinner>
         <SkeletonText
           fontSize='lg'
-          width='168px'></SkeletonText>
+          width='210px'></SkeletonText>
       </Skeleton>
     </>
   );
