@@ -1,26 +1,45 @@
 import { useGenres } from "../hooks/useData";
-import { HStack, Image, List, ListItem, Text } from "@chakra-ui/react";
-import getCroppedImageUrl from "../services/image-url";
+import { List, Text } from "@chakra-ui/react";
+import GenreListSkeleton from "./GenreListSkeleton";
+import GenreListItem from "./GenreListItem";
 
 const GenreList = () => {
-  const { data } = useGenres();
+  const {
+    data: genres,
+    error: genresError,
+    isLoading: isLoadingGenres,
+  } = useGenres();
+
+  const styleProps = {
+    boxSize: "32px",
+    borderRadius: 8,
+    paddingY: "5px",
+  };
+
+  const skeletons = [1, 2, 3, 4, 5, 6, 7];
+
   return (
-    <List>
-      {data.map((genre) => (
-        <ListItem
-          key={genre.id}
-          paddingY='5px'>
-          <HStack>
-            {genre.name}
-            <Image
-              boxSize='32px'
-              borderRadius={8}
-              src={getCroppedImageUrl(genre.image_background)}></Image>
-          </HStack>
-          <Text fontSize='lg'>{genre.name}</Text>
-        </ListItem>
-      ))}
-    </List>
+    <>
+      {genresError && <Text>{genresError}</Text>}
+      <List>
+        {isLoadingGenres &&
+          skeletons.map((skeleton, index) => (
+            <GenreListSkeleton
+              boxSize={styleProps.boxSize}
+              borderRadius={styleProps.borderRadius}
+              key={`skeleton-${index}`}></GenreListSkeleton>
+          ))}
+
+        {genres.map((genre) => (
+          <GenreListItem
+            key={genre.id}
+            genre={genre}
+            boxSize={styleProps.boxSize}
+            paddingY={styleProps.paddingY}
+            borderRadius={styleProps.borderRadius}></GenreListItem>
+        ))}
+      </List>
+    </>
   );
 };
 
