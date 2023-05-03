@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { CanceledError } from "axios";
+import { AxiosRequestConfig, CanceledError } from "axios";
 
 import { Game, Genre } from "./useData-types";
 import apiClient from "../services/api-client";
@@ -17,33 +17,46 @@ type Data<T> = {
   isLoading: boolean;
 };
 
-const useData = <T>(endpoint: string): Data<T> => {
+const useData = <T>(
+  endpoint: string,
+  requestConfig?: AxiosRequestConfig,
+  deps?: any[]
+): Data<T> => {
   const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    const controller = new AbortController();
+  useEffect(
+    () => {
+      const controller = new AbortController();
 
-    setLoading(true);
-    apiClient
-      .get<ApiResponse<T>>(endpoint, { signal: controller.signal })
-      .then((res) => {
-        setData(res.data.results);
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setLoading(false);
-      });
+      setLoading(true);
+      apiClient
+        .get<ApiResponse<T>>(endpoint, {
+          signal: controller.signal,
+          ...requestConfig,
+        })
+        .then((res) => {
+          setData(res.data.results);
+          setLoading(false);
+        })
+        .catch((err) => {
+          if (err instanceof CanceledError) return;
+          setError(err.message);
+          setLoading(false);
+        });
 
-    return () => controller.abort();
-  }, []);
+      return () => controller.abort();
+    },
+    deps ? [...deps] : []
+  );
 
   return { data, error, isLoading };
 };
 
-export const useGames = (): Data<Game> => useData<Game>("/games");
-
 export const useGenres = (): Data<Genre> => useData<Genre>("/genres");
+
+export const useGames = (selectedGenre: Genre | null): Data<Game> =>
+  useData<Game>("/games", { params: { genres: selectedGenre?.id } }, [
+    selectedGenre?.id,
+  ]);

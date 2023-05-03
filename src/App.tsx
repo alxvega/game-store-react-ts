@@ -26,7 +26,7 @@ const App = () => {
           </GridItem>
         </Show>
         <GridItem area='main'>
-          <GamesGrid></GamesGrid>
+          <GamesGrid selectedGenre={selectedGenre}></GamesGrid>
         </GridItem>
       </Grid>
     </>
