@@ -8,6 +8,7 @@ interface Props {
   borderRadius: number;
   paddingY: string;
   onSelectedGenre: (genre: Genre) => void;
+  selectedGenre: Genre | null;
 }
 
 const GenreListItem = ({
@@ -16,6 +17,7 @@ const GenreListItem = ({
   borderRadius,
   paddingY,
   onSelectedGenre,
+  selectedGenre,
 }: Props) => {
   return (
     <>
@@ -29,6 +31,7 @@ const GenreListItem = ({
           <Button
             fontSize='lg'
             variant='link'
+            fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
             onClick={() => onSelectedGenre(genre)}>
             {genre.name}
           </Button>

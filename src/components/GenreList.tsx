@@ -6,9 +6,10 @@ import { Genre } from "../hooks/useData-types";
 
 interface Props {
   onSelectedGenre: (genre: Genre) => void;
+  selectedGenre: Genre | null;
 }
 
-const GenreList = ({ onSelectedGenre }: Props) => {
+const GenreList = ({ selectedGenre, onSelectedGenre }: Props) => {
   const {
     data: genres,
     error: genresError,
@@ -36,6 +37,7 @@ const GenreList = ({ onSelectedGenre }: Props) => {
 
         {genres.map((genre) => (
           <GenreListItem
+            selectedGenre={selectedGenre}
             onSelectedGenre={onSelectedGenre}
             key={genre.id}
             genre={genre}
