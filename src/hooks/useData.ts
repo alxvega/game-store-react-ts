@@ -54,11 +54,21 @@ const useData = <T>(
   return { data, error, isLoading };
 };
 
-export const useGenres = (): Data<Genre> => useData<Genre>("/genres");
+export const useGames = (
+  selectedGenre: Genre | null,
+  selectedPlatform: Platform | null
+) =>
+  useData<Game>(
+    "/games",
+    {
+      params: {
+        genres: selectedGenre?.id,
+        platforms: selectedPlatform?.id,
+      },
+    },
+    [selectedGenre?.id, selectedPlatform?.id]
+  );
 
-export const useGames = (selectedGenre: Genre | null): Data<Game> =>
-  useData<Game>("/games", { params: { genres: selectedGenre?.id } }, [
-    selectedGenre?.id,
-  ]);
+export const useGenres = (): Data<Genre> => useData<Genre>("/genres");
 
 export const usePlatforms = () => useData<Platform>("/platforms/lists/parents");
