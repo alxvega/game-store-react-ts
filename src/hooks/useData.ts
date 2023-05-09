@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { AxiosRequestConfig, CanceledError } from "axios";
 
-import { Game, Genre } from "./useData-types";
+import { Game, Genre, Platform } from "./useData-types";
 import apiClient from "../services/api-client";
 
 interface ApiResponse<T> {
@@ -60,3 +60,5 @@ export const useGames = (selectedGenre: Genre | null): Data<Game> =>
   useData<Game>("/games", { params: { genres: selectedGenre?.id } }, [
     selectedGenre?.id,
   ]);
+
+export const usePlatforms = () => useData<Platform>("/platforms/lists/parents");
