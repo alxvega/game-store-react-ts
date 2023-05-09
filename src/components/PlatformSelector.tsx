@@ -3,8 +3,9 @@ import { BsChevronDown } from "react-icons/bs";
 import { usePlatforms } from "../hooks/useData";
 
 const PlatformSelector = () => {
-  const { data } = usePlatforms();
+  const { data, error } = usePlatforms();
 
+  if (error) return null;
   return (
     <>
       <Menu>
