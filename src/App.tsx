@@ -1,10 +1,10 @@
+import { useState } from "react";
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import GamesGrid from "./components/GamesGrid";
 import GenreList from "./components/GenreList";
-import { useState } from "react";
-import { Genre, Platform } from "./hooks/useData-types";
 import PlatformSelector from "./components/PlatformSelector";
+import { Genre, Platform } from "./hooks/useData-types";
 
 export interface GameQuery {
   genre: Genre | null;
