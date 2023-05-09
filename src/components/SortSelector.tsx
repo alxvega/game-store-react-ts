@@ -1,18 +1,19 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
-import { OrderBy } from "../hooks/useData-types";
-
-interface SortCriteria {
-  value: { value: string; label: string } | null;
-  label: string;
-}
 
 interface Props {
-  sortCriterias: SortCriteria[];
-  onSelectedSortOrder: (orderBy: OrderBy) => void;
+  onSelectedSortOrder: (sortBy: string) => void;
 }
 
-const SortSelector = ({ sortCriterias, onSelectedSortOrder }: Props) => {
+const SortSelector = ({ onSelectedSortOrder }: Props) => {
+  const sortCriterias = [
+    { value: "", label: "Relevance" },
+    { value: "-added", label: "Date added" },
+    { value: "name", label: "Name" },
+    { value: "-released", label: "Release date" },
+    { value: "metacritic", label: "Popularity" },
+    { value: "-rating", label: "Average rating" },
+  ];
   return (
     <Menu>
       <MenuButton
@@ -23,8 +24,8 @@ const SortSelector = ({ sortCriterias, onSelectedSortOrder }: Props) => {
       <MenuList>
         {sortCriterias.map((criteria) => (
           <MenuItem
-            key={criteria.value?.value}
-            onClick={() => onSelectedSortOrder({ criteria: criteria.value })}>
+            key={criteria.value}
+            onClick={() => onSelectedSortOrder(criteria.value)}>
             {criteria.label}
           </MenuItem>
         ))}

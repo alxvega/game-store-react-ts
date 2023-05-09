@@ -10,7 +10,7 @@ import SortSelector from "./components/SortSelector";
 export interface GameQuery {
   genre: Genre | null;
   platform: Platform | null;
-  orderBy: OrderBy | null;
+  orderBy: string;
 }
 
 const App = () => {
@@ -48,34 +48,11 @@ const App = () => {
               }
             />
             <SortSelector
-              sortCriterias={[
-                {
-                  value: { value: "", label: "Relevance" },
-                  label: "Relevance",
-                },
-                {
-                  value: { value: "-added", label: "Date added" },
-                  label: "Date added",
-                },
-                { value: { value: "name", label: "Name" }, label: "Name" },
-                {
-                  value: { value: "-released", label: "Release date" },
-                  label: "Release date",
-                },
-                {
-                  value: { value: "metacritic", label: "Popularity" },
-                  label: "Popularity",
-                },
-                {
-                  value: { value: "-rating", label: "Average rating" },
-                  label: "Average rating",
-                },
-              ]}
-              onSelectedSortOrder={(orderBy) => {
-                setGameQuery({ ...gameQuery, orderBy });
-              }}
-            />
+              onSelectedSortOrder={(orderBy) =>
+                setGameQuery({ ...gameQuery, orderBy })
+              }></SortSelector>
           </HStack>
+
           <GamesGrid gameQuery={gameQuery}></GamesGrid>
         </GridItem>
       </Grid>
