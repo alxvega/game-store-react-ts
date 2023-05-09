@@ -19,3 +19,7 @@ export interface Genre {
   image_background: string;
   description: string;
 }
+
+export interface OrderBy {
+  criteria: { value: string; label: string } | null;
+}

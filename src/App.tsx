@@ -4,12 +4,13 @@ import NavBar from "./components/NavBar";
 import GamesGrid from "./components/GamesGrid";
 import GenreList from "./components/GenreList";
 import PlatformSelector from "./components/PlatformSelector";
-import { Genre, Platform } from "./hooks/useData-types";
+import { Genre, OrderBy, Platform } from "./hooks/useData-types";
 import SortSelector from "./components/SortSelector";
 
 export interface GameQuery {
   genre: Genre | null;
   platform: Platform | null;
+  orderBy: OrderBy | null;
 }
 
 const App = () => {
@@ -46,9 +47,35 @@ const App = () => {
                 setGameQuery({ ...gameQuery, platform })
               }
             />
-            <SortSelector></SortSelector>
+            <SortSelector
+              sortCriterias={[
+                {
+                  value: { value: "", label: "Relevance" },
+                  label: "Relevance",
+                },
+                {
+                  value: { value: "-added", label: "Date added" },
+                  label: "Date added",
+                },
+                { value: { value: "name", label: "Name" }, label: "Name" },
+                {
+                  value: { value: "-released", label: "Release date" },
+                  label: "Release date",
+                },
+                {
+                  value: { value: "metacritic", label: "Popularity" },
+                  label: "Popularity",
+                },
+                {
+                  value: { value: "-rating", label: "Average rating" },
+                  label: "Average rating",
+                },
+              ]}
+              onSelectedSortOrder={(orderBy) => {
+                setGameQuery({ ...gameQuery, orderBy });
+              }}
+            />
           </HStack>
-
           <GamesGrid gameQuery={gameQuery}></GamesGrid>
         </GridItem>
       </Grid>
