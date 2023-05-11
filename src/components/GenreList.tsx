@@ -1,5 +1,5 @@
 import { useGenres } from "../hooks/useData";
-import { List, Text } from "@chakra-ui/react";
+import { Heading, List, Text } from "@chakra-ui/react";
 import GenreListSkeleton from "./GenreListSkeleton";
 import GenreListItem from "./GenreListItem";
 import { Genre } from "../hooks/useData-types";
@@ -28,6 +28,11 @@ const GenreList = ({ selectedGenre, onSelectedGenre }: Props) => {
     <>
       {genresError && <Text>{genresError}</Text>}
       <List>
+        <Heading
+          fontSize='2xl'
+          marginBottom={3}>
+          Genres
+        </Heading>
         {isLoadingGenres &&
           skeletons.map((skeleton) => (
             <GenreListSkeleton

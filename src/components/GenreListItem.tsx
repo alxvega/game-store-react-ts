@@ -27,8 +27,11 @@ const GenreListItem = ({
           <Image
             boxSize={boxSize}
             borderRadius={borderRadius}
+            objectFit='cover'
             src={getCroppedImageUrl(genre.image_background)}></Image>
           <Button
+            whiteSpace='normal'
+            textAlign='left'
             fontSize='lg'
             variant='link'
             fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
