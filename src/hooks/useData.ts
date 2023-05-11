@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { AxiosRequestConfig, CanceledError } from "axios";
 
 import { Game, Genre, Platform } from "./useData-types";
+import genres from "../data/genres";
 import apiClient from "../services/api-client";
 import { GameQuery } from "../App";
 
@@ -69,6 +70,11 @@ export const useGames = (gameQuery: GameQuery) =>
     [gameQuery]
   );
 
-export const useGenres = (): Data<Genre> => useData<Genre>("/genres");
+// export const useGenres = (): Data<Genre> => useData<Genre>("/genres");
+export const useGenres = () => ({
+  data: genres,
+  isLoading: false,
+  error: null,
+});
 
 export const usePlatforms = () => useData<Platform>("/platforms/lists/parents");
