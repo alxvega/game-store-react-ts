@@ -7,6 +7,7 @@ import PlatformSelector from "./components/PlatformSelector";
 import { Genre, Platform } from "./hooks/useData-types";
 import SortSelector from "./components/SortSelector";
 import GameHeading from "./components/GameHeading";
+import GenresDropdown from "./components/GenresDropdown";
 
 export interface GameQuery {
   genre: Genre | null;
@@ -44,16 +45,33 @@ const App = () => {
         <GridItem area='main'>
           <Box paddingLeft={2}>
             <GameHeading gameQuery={gameQuery}></GameHeading>
-            <Flex marginBottom={2}>
-              <Box marginRight={5}>
-                <PlatformSelector
-                  selectedPlatform={gameQuery.platform}
-                  onSelectPlatform={(platform) =>
-                    setGameQuery({ ...gameQuery, platform })
-                  }
-                />
+            <Flex
+              flexDirection={["column", "row"]}
+              marginBottom={2}>
+              <Box marginBottom={[2, 0]}>
+                <Flex
+                  flexDirection={["row", "row"]}
+                  marginBottom={2}
+                  wrap='wrap'>
+                  <Box marginRight={[2, 5]}>
+                    <PlatformSelector
+                      selectedPlatform={gameQuery.platform}
+                      onSelectPlatform={(platform) =>
+                        setGameQuery({ ...gameQuery, platform })
+                      }
+                    />
+                  </Box>
+                  <Show below='lg'>
+                    <Box alignContent='flex-start'>
+                      <GenresDropdown
+                        selectedGenre={gameQuery.genre}
+                        onSelectedGenre={(genre) =>
+                          setGameQuery({ ...gameQuery, genre })
+                        }></GenresDropdown>
+                    </Box>
+                  </Show>
+                </Flex>
               </Box>
-
               <SortSelector
                 sortOrder={gameQuery.orderBy}
                 onSelectedSortOrder={(orderBy) =>
@@ -61,7 +79,6 @@ const App = () => {
                 }></SortSelector>
             </Flex>
           </Box>
-
           <GamesGrid gameQuery={gameQuery}></GamesGrid>
         </GridItem>
       </Grid>

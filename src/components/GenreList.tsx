@@ -22,36 +22,33 @@ const GenreList = ({ selectedGenre, onSelectedGenre }: Props) => {
     paddingY: "5px",
   };
 
-  const skeletons = [1, 2, 3, 4, 5, 6, 7];
+  if (genresError) return <Text>{genresError}</Text>;
 
   return (
-    <>
-      {genresError && <Text>{genresError}</Text>}
-      <List>
-        <Heading
-          fontSize='2xl'
-          marginBottom={3}>
-          Genres
-        </Heading>
-        {isLoadingGenres &&
-          skeletons.map((skeleton) => (
-            <GenreListSkeleton
-              paddingY={styleProps.paddingY}
-              key={`skeleton-${skeleton}`}></GenreListSkeleton>
-          ))}
-
-        {genres.map((genre) => (
-          <GenreListItem
-            selectedGenre={selectedGenre}
-            onSelectedGenre={onSelectedGenre}
-            key={genre.id}
-            genre={genre}
-            boxSize={styleProps.boxSize}
+    <List>
+      <Heading
+        fontSize='2xl'
+        marginBottom={3}>
+        Genres
+      </Heading>
+      {isLoadingGenres &&
+        Array.from({ length: 20 }).map((_, index) => (
+          <GenreListSkeleton
             paddingY={styleProps.paddingY}
-            borderRadius={styleProps.borderRadius}></GenreListItem>
+            key={`skeleton-${index}`}></GenreListSkeleton>
         ))}
-      </List>
-    </>
+
+      {genres.map((genre) => (
+        <GenreListItem
+          selectedGenre={selectedGenre}
+          onSelectedGenre={onSelectedGenre}
+          key={genre.id}
+          genre={genre}
+          boxSize={styleProps.boxSize}
+          paddingY={styleProps.paddingY}
+          borderRadius={styleProps.borderRadius}></GenreListItem>
+      ))}
+    </List>
   );
 };
 
